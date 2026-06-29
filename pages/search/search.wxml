@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input
+      class="search-input"
+      placeholder="搜索产品"
+      placeholder-style="color: #9e9e9e"
+      value="{{keyword}}"
+      focus
+      bindinput="onInput"
+    />
+    <text wx:if="{{keyword}}" class="clear-btn" bindtap="onClear">✕</text>
+  </view>
+
+  <view wx:if="{{!searched}}" class="hot-section">
+    <text class="hot-title">热门搜索</text>
+    <view class="hot-tags">
+      <text
+        wx:for="{{hotTags}}"
+        wx:key="*this"
+        class="hot-tag"
+        data-tag="{{item}}"
+        bindtap="onTapTag"
+      >{{item}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{searched}}" class="result-section">
+    <text class="result-count">找到 {{results.length}} 个产品</text>
+
+    <view
+      wx:for="{{results}}"
+      wx:key="_id"
+      class="result-item"
+      data-product="{{item}}"
+      bindtap="onTapResult"
+    >
+      <image
+        wx:if="{{item.images[0]}}"
+        class="result-image"
+        src="{{item.images[0]}}"
+        mode="aspectFill"
+      />
+      <view wx:else class="result-placeholder">📦</view>
+      <view class="result-body">
+        <text class="result-name">{{item.name}}</text>
+        <text class="result-brand">{{item.brand}} · {{item.category}}</text>
+        <text class="result-price">¥{{item.price}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{results.length === 0 && !loading}}" class="empty">
+      <text>未找到相关产品</text>
+    </view>
+  </view>
+</view>

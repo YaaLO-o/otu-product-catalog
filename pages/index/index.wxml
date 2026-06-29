@@ -1,0 +1,62 @@
+<view class="container">
+
+  <view class="search-bar" bindtap="onTapSearch">
+    <text class="search-icon">🔍</text>
+    <text class="search-placeholder">搜索产品</text>
+  </view>
+
+  <swiper
+    wx:if="{{banners.length}}"
+    class="banner-swiper"
+    indicator-dots
+    indicator-color="#9e9e9e"
+    indicator-active-color="#00e5ff"
+    autoplay
+    circular
+    interval="4000"
+  >
+    <swiper-item
+      wx:for="{{banners}}"
+      wx:key="_id"
+      data-product="{{item}}"
+      bindtap="onTapBanner"
+    >
+      <image
+        wx:if="{{item.images[0]}}"
+        src="{{item.images[0]}}"
+        mode="aspectFill"
+        class="banner-image"
+      />
+      <view class="banner-overlay">
+        <text class="banner-name">{{item.name}}</text>
+        <text class="banner-price">¥{{item.price}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="category-grid">
+    <view
+      wx:for="{{categories}}"
+      wx:key="name"
+      class="category-item"
+      data-name="{{item.name}}"
+      bindtap="onTapCategory"
+    >
+      <text class="category-icon">{{item.icon}}</text>
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">热门推荐</text>
+    <view class="product-grid">
+      <product-card
+        wx:for="{{hotProducts}}"
+        wx:key="_id"
+        product="{{item}}"
+        bindtap="onTapProduct"
+      />
+    </view>
+  </view>
+
+</view>

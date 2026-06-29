@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="brand-section">
+    <text class="brand-name">{{brandName}}</text>
+    <text class="brand-desc">科技消费品展示目录</text>
+  </view>
+
+  <view class="stat-section">
+    <view class="stat-item">
+      <text class="stat-number">{{productCount}}</text>
+      <text class="stat-label">款产品</text>
+    </view>
+  </view>
+
+  <view class="contact-section">
+    <text class="contact-title">联系我们</text>
+    <view class="contact-card" bindtap="onCopyWechat">
+      <text class="contact-label">微信号</text>
+      <text class="contact-value">{{wechatId || '未设置'}}</text>
+      <text class="contact-hint">点击复制</text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="footer-text">Powered by WeChat CloudBase</text>
+  </view>
+</view>

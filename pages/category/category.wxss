@@ -1,0 +1,55 @@
+.container {
+  padding-bottom: 40rpx;
+}
+
+.category-tabs {
+  white-space: nowrap;
+  padding: 24rpx 24rpx;
+  border-bottom: 1rpx solid var(--divider);
+}
+.tab-item {
+  display: inline-block;
+  padding: 12rpx 32rpx;
+  margin-right: 16rpx;
+  border-radius: 32rpx;
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  transition: all 0.2s;
+}
+.tab-active {
+  color: #0a0a0f;
+  background-color: var(--accent);
+  font-weight: 600;
+}
+
+.category-info {
+  padding: 20rpx 32rpx 8rpx;
+}
+.category-count {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 16rpx;
+}
+.product-grid > product-card {
+  width: 50%;
+}
+
+.load-more {
+  text-align: center;
+  padding: 32rpx;
+}
+.load-text {
+  color: var(--text-secondary);
+  font-size: 24rpx;
+}
+.empty {
+  text-align: center;
+  padding: 120rpx 0;
+  color: var(--text-secondary);
+}

@@ -1,0 +1,36 @@
+<view class="container">
+  <scroll-view class="category-tabs" scroll-x>
+    <view
+      wx:for="{{categories}}"
+      wx:key="*this"
+      class="tab-item {{activeCategory === item ? 'tab-active' : ''}}"
+      data-name="{{item}}"
+      bindtap="onSwitchCategory"
+    >
+      <text>{{item}}</text>
+    </view>
+  </scroll-view>
+
+  <view class="category-info" wx:if="{{total}}">
+    <text class="category-count">共 {{total}} 款</text>
+  </view>
+
+  <view class="product-grid">
+    <product-card
+      wx:for="{{products}}"
+      wx:key="_id"
+      product="{{item}}"
+      bindtap="onTapProduct"
+    />
+  </view>
+
+  <view class="load-more" wx:if="{{loading}}">
+    <text class="load-text">加载中...</text>
+  </view>
+  <view class="load-more" wx:elif="{{!hasMore && products.length > 0}}">
+    <text class="load-text">— 已展示全部 —</text>
+  </view>
+  <view class="empty" wx:if="{{!loading && products.length === 0}}">
+    <text>暂无产品</text>
+  </view>
+</view>

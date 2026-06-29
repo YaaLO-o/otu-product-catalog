@@ -1,0 +1,16 @@
+<view class="card" bindtap="onTap">
+  <image
+    wx:if="{{displayImage}}"
+    class="card-image"
+    src="{{displayImage}}"
+    mode="aspectFill"
+    lazy-load
+  />
+  <view wx:else class="card-placeholder">
+    <text class="placeholder-icon">📦</text>
+  </view>
+  <view class="card-body">
+    <text class="card-name">{{product.name}}</text>
+    <text class="card-price">{{formatPrice(product.price)}}</text>
+  </view>
+</view>

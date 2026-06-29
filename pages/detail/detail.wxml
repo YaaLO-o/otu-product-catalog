@@ -1,0 +1,58 @@
+<view wx:if="{{product}}" class="container">
+
+  <swiper
+    class="detail-swiper"
+    indicator-dots
+    indicator-color="#9e9e9e"
+    indicator-active-color="#00e5ff"
+    bindchange="onSwiperChange"
+  >
+    <block wx:if="{{product.images.length}}">
+      <swiper-item
+        wx:for="{{product.images}}"
+        wx:key="*this"
+        data-index="{{index}}"
+        bindtap="onPreviewImage"
+      >
+        <image src="{{item}}" mode="aspectFit" class="detail-image" />
+      </swiper-item>
+    </block>
+    <swiper-item wx:else>
+      <view class="detail-placeholder">📦</view>
+    </swiper-item>
+  </swiper>
+
+  <view class="info-section">
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-price">¥{{product.price}}</text>
+    <text class="product-meta">{{product.brand}} · {{product.model}} · {{product.category}}</text>
+  </view>
+
+  <view class="desc-section" wx:if="{{product.description}}">
+    <text class="desc-text">{{product.description}}</text>
+  </view>
+
+  <view class="specs-section" wx:if="{{product.specs.length}}">
+    <text class="specs-title">📋 详细规格</text>
+    <view class="specs-table">
+      <view
+        wx:for="{{product.specs}}"
+        wx:key="key"
+        class="spec-row"
+      >
+        <text class="spec-key">{{item.key}}</text>
+        <text class="spec-value">{{item.value}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view style="height: 120rpx;"></view>
+
+<view wx:if="{{product}}" class="bottom-bar">
+  <button class="copy-btn" bindtap="onCopyWechat">
+    <text class="copy-icon">📋</text>
+    <text>复制微信号</text>
+  </button>
+</view>
