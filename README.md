@@ -2,7 +2,7 @@
 
 A dark-themed product showcase web app for tech consumer electronics. Browse **83 products** across **12 categories** with real-time search, category filtering, and a polished mobile-first UI.
 
-**Live Demo** → [View on GitHub Pages](https://yaa-lo-o.github.io/otu-product-catalog/)
+**Live Demo** → [View on GitHub Pages](https://yaalo-o.github.io/otu-product-catalog/)
 
 ## Features
 
@@ -37,7 +37,7 @@ cd otu-product-catalog
 open index.html
 ```
 
-Or simply visit the [live demo](https://yaa-lo-o.github.io/otu-product-catalog/).
+Or simply visit the [live demo](https://yaalo-o.github.io/otu-product-catalog/).
 
 ## Project Structure
 
