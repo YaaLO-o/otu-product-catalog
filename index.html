@@ -530,7 +530,11 @@ function updateTabs(active) {
   if (active) document.getElementById('tab-'+active).classList.add('active');
 }
 
-function switchTab(tab) { pageStack = []; showPage(tab, false); }
+function switchTab(tab) {
+  if (currentPage !== tab) pageStack = [currentPage];
+  else pageStack = [];
+  showPage(tab, false);
+}
 
 function showCategory(cat) { activeCategory = cat; switchTab('category'); }
 
