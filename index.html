@@ -495,25 +495,27 @@ function showPage(page, pushStack=true) {
   const share = document.getElementById('navShare');
   const title = document.getElementById('navTitle');
   share.style.display = 'none';
+  const isSubPage = pageStack.length > 0;
+  back.style.display = isSubPage ? 'block' : 'none';
 
   if (page === 'home') {
-    back.style.display = 'none'; title.textContent = '产品目录';
+    title.textContent = '产品目录';
     updateTabs('home');
   } else if (page === 'category') {
-    back.style.display = 'none'; title.textContent = '分类';
+    title.textContent = '分类';
     updateTabs('category');
     renderCategoryTabs();
     renderCategoryProducts();
   } else if (page === 'search') {
-    back.style.display = 'block'; title.textContent = '搜索';
+    title.textContent = '搜索';
     updateTabs(null);
     setTimeout(() => document.getElementById('searchInput')?.focus(), 100);
   } else if (page === 'detail') {
-    back.style.display = 'block'; share.style.display = 'block';
+    share.style.display = 'block';
     title.textContent = '产品详情';
     updateTabs(null);
   } else if (page === 'about') {
-    back.style.display = 'none'; title.textContent = '关于';
+    title.textContent = '关于';
     updateTabs('about');
     document.getElementById('aboutCount').textContent = products.length;
     document.getElementById('aboutWechat').textContent = wechatId;
