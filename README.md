@@ -1,85 +1,85 @@
-# OTU — Tech Product Catalog
+# OTU — 科技消费品展示目录
 
-A dark-themed product showcase web app for tech consumer electronics. Browse **83 products** across **12 categories** with real-time search, category filtering, and a polished mobile-first UI.
+一个深色主题的产品展示 Web 应用，涵盖 **83 款产品**、**12 个品类**，支持实时搜索、分类浏览，移动端优先的精致 UI。
 
-**Live Demo** → [View on GitHub Pages](https://yaalo-o.github.io/otu-product-catalog/)
+**在线体验** → [GitHub Pages](https://yaalo-o.github.io/otu-product-catalog/)
 
-## Why This Project
+## 为什么做这个项目
 
-My family is starting a tech consumer electronics booth at Yiwu International Trade City (义乌国际商贸城), selling chargers, cables, earbuds, power banks, and more. Customers visit the booth to browse products, but a physical catalog is slow to update and hard to carry around.
+家里在义乌国际商贸城起步经营一个科技消费品摊位，卖充电器、数据线、耳机、移动电源等产品。客户来摊位看货时，翻纸质目录更新慢、携带也不方便。
 
-I built this as a **WeChat Mini Program** so customers could scan a QR code, browse the full product catalog on their phone, and copy our WeChat ID to place orders. The `miniprogram/` directory contains the complete Mini Program source code with cloud backend.
+最初计划做成**微信小程序**，客户扫码就能在手机上看完整产品目录，一键复制微信号联系下单。`miniprogram/` 目录包含了完整的小程序源码和云开发后端。
 
-However, WeChat Mini Program publishing requires business registration and domain verification, which takes time. To demonstrate the project immediately, I built a **standalone web version** (`index.html`) that replicates the full Mini Program experience in a browser — same UI, same data, same interactions. This is the live demo you see above.
+但微信小程序上架需要企业资质和域名审核，周期较长。为了先能展示项目，我同步做了一个**独立网页版**（`index.html`），在浏览器里完整复刻了小程序的全部体验——同样的 UI、同样的数据、同样的交互逻辑。也就是你上面看到的在线体验。
 
-Once the WeChat review is complete, the Mini Program can be deployed directly.
+等微信审核通过后，小程序可以直接部署上线。
 
-## Features
+## 功能特性
 
-- **83 products** spanning 12 categories: chargers, car chargers, cables, Bluetooth earbuds, wired earphones, speakers, power banks, car mounts, power strips, keyboards/mice, storage, and receivers
-- **Dark Tech UI** — deep black background (`#0a0a0f`) with cyan accent (`#00e5ff`)
-- **Real-time search** with debounced input and hot keyword tags
-- **Category browsing** with horizontal tab scroll and 2-column product grid
-- **Product detail** pages with specs table, description, and one-tap WeChat ID copy
-- **Auto-rotating banner** showcasing featured products
-- **Zero dependencies** — pure vanilla HTML, CSS, and JavaScript
-- **Mobile-first design** rendered in a phone-frame mockup (iPhone 14 dimensions)
+- **83 款产品**，覆盖 12 个品类：充电器、车充、数据线、蓝牙耳机、有线耳机、蓝牙音箱、移动电源、车载支架、排插、键鼠、存储、接收器
+- **Dark Tech 深色主题** — 深黑底色（`#0a0a0f`）+ 荧光青强调色（`#00e5ff`）
+- **实时搜索** — 输入即搜，支持产品名和描述匹配
+- **分类浏览** — 横向标签滚动 + 双列产品网格
+- **产品详情** — 规格表、产品描述、一键复制微信号
+- **自动轮播 Banner** — 展示热门推荐产品
+- **零依赖** — 纯原生 HTML + CSS + JavaScript，无需任何框架
+- **移动端优先** — iPhone 14 尺寸的手机模拟器展示
 
-## Tech Stack
+## 技术栈
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Vanilla HTML5 + CSS3 + ES6 JavaScript |
-| Data | Static JSON-style product data (`products.js`) |
-| Styling | CSS Custom Properties, Grid, Flexbox |
-| Hosting | GitHub Pages |
+| 层级 | 技术 |
+|------|------|
+| 前端 | 原生 HTML5 + CSS3 + ES6 JavaScript |
+| 数据 | 静态产品数据（`products.js`） |
+| 样式 | CSS Custom Properties、Grid、Flexbox |
+| 托管 | GitHub Pages |
 
-No frameworks. No build tools. No npm. Just open `index.html`.
+没有框架，没有构建工具，没有 npm。直接打开 `index.html` 就能运行。
 
-## Getting Started
+## 快速开始
 
 ```bash
-# Clone the repo
+# 克隆仓库
 git clone https://github.com/YaaLO-o/otu-product-catalog.git
 cd otu-product-catalog
 
-# Open in browser
+# 浏览器打开
 open index.html
 ```
 
-Or simply visit the [live demo](https://yaalo-o.github.io/otu-product-catalog/).
+或者直接访问[在线体验](https://yaalo-o.github.io/otu-product-catalog/)。
 
-## Project Structure
+## 项目结构
 
 ```
 otu-product-catalog/
-├── index.html              # Main app (single-page, self-contained)
-├── products.js             # Product data (83 items, 12 categories)
+├── index.html              # 主应用（单文件，自包含）
+├── products.js             # 产品数据（83 款，12 品类）
 ├── README.md
-├── miniprogram/            # WeChat Mini Program prototype (reference)
-│   ├── app.js / app.json / app.wxss
-│   ├── pages/              # WeChat page components
-│   ├── components/         # Reusable UI components
-│   ├── cloudfunctions/     # Cloud function stubs
-│   └── utils/
-└── docs/
-    └── 设计规格书.md        # Design specification (Chinese)
+├── docs/
+│   └── 设计规格书.md        # 设计文档
+└── miniprogram/            # 微信小程序原型（参考）
+    ├── app.js / app.json / app.wxss
+    ├── pages/              # 小程序页面
+    ├── components/         # 复用组件
+    ├── cloudfunctions/     # 云函数
+    └── utils/
 ```
 
-> The `miniprogram/` directory contains the original WeChat Mini Program source code that inspired this web version. It serves as a design reference and is not functional without a WeChat Cloud Development environment.
+> `miniprogram/` 目录是最初设计的微信小程序源码，作为设计参考保留。没有微信云开发环境无法运行。
 
-## Design
+## 设计风格
 
-The UI follows a **Dark Tech** aesthetic:
+**Dark Tech** 深色科技风：
 
-- **Background**: `#0a0a0f` (deep black)
-- **Cards**: `#14141f` (elevated surface)
-- **Accent**: `#00e5ff` (cyan, interactive elements)
-- **Warm accent**: `#ff6d00` (tags, badges)
-- **Text**: `#f5f5f5` primary / `#9e9e9e` secondary
+- **底色** `#0a0a0f` — 深黑，产品是唯一视觉焦点
+- **卡片** `#14141f` — 浮起的表面
+- **强调色** `#00e5ff` — 荧光青，用于价格、按钮、交互状态
+- **次级强调** `#ff6d00` — 暗橙，用于标签和徽章
+- **文字** `#f5f5f5` 主色 / `#9e9e9e` 辅色
 
-Each product category has a unique gradient background and emoji icon for visual differentiation without relying on images.
+每个品类配有独立的渐变背景色和 emoji 图标，无需图片也能清晰区分。
 
-## License
+## 许可
 
 MIT
