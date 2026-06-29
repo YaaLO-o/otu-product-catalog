@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>产品目录 - 小程序预览</title>
+<meta name="description" content="OTU Tech Product Catalog — 83 products across 12 categories. Dark-themed product showcase with search and category browsing.">
+<meta name="theme-color" content="#0a0a0f">
+<title>OTU — Tech Product Catalog</title>
 <script src="products.js"></script>
 <style>
   :root {
@@ -14,17 +16,20 @@
     --accent: #00e5ff;
     --accent-warm: #ff6d00;
     --divider: #1e1e2e;
-    --safe-bottom: 20px;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow: hidden;
   }
+
+  /* ===== PHONE FRAME ===== */
   .phone {
     width: 390px;
     height: 844px;
@@ -32,10 +37,10 @@
     border-radius: 40px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 0 0 3px #1a1a2e, 0 0 60px rgba(0,229,255,0.08);
+    box-shadow: 0 0 0 3px #1a1a2e, 0 0 80px rgba(0,229,255,0.1);
   }
 
-  /* Status bar */
+  /* ===== STATUS BAR ===== */
   .status-bar {
     height: 44px;
     display: flex;
@@ -49,7 +54,7 @@
   .status-bar .time { font-size: 14px; font-weight: 700; }
   .status-icons { display:flex; gap:6px; align-items:center; font-size:11px; }
 
-  /* Nav bar */
+  /* ===== NAV BAR ===== */
   .nav-bar {
     height: 44px;
     display: flex;
@@ -62,31 +67,34 @@
     border-bottom: 0.5px solid var(--divider);
   }
   .nav-back {
-    position: absolute;
-    left: 16px;
-    font-size: 20px;
-    color: var(--accent);
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 8px;
+    position: absolute; left: 16px;
+    font-size: 22px; color: var(--accent);
+    cursor: pointer; background: none; border: none; padding: 8px;
+    line-height: 1;
   }
   .nav-share {
-    position: absolute;
-    right: 16px;
-    font-size: 18px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 8px;
+    position: absolute; right: 16px;
+    font-size: 18px; cursor: pointer;
+    background: none; border: none; padding: 8px;
   }
 
-  /* Pages container */
-  .pages { height: calc(844px - 44px - 44px - 60px); overflow-y: auto; }
-  .page { display: none; padding-bottom: 20px; }
-  .page.active { display: block; }
+  /* ===== PAGES ===== */
+  .pages {
+    height: calc(844px - 44px - 44px - 60px);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  .pages::-webkit-scrollbar { width: 0; }
 
-  /* Tab bar */
+  .page { display: none; padding-bottom: 20px; }
+  .page.active { display: block; animation: fadeIn 0.2s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== TAB BAR ===== */
   .tab-bar {
     height: 60px;
     display: flex;
@@ -112,30 +120,21 @@
   .tab-item.active { color: var(--accent); }
   .tab-icon { font-size: 22px; }
 
-  /* Scrollbar */
-  .pages::-webkit-scrollbar { width: 0; }
-
-  /* === COMPONENTS === */
-
-  /* Search bar */
+  /* ===== SEARCH BAR ===== */
   .search-bar {
-    display: flex;
-    align-items: center;
-    margin: 12px 16px;
-    padding: 10px 14px;
-    background: var(--bg-card);
-    border-radius: 12px;
-    cursor: pointer;
+    display: flex; align-items: center;
+    margin: 12px 16px; padding: 10px 14px;
+    background: var(--bg-card); border-radius: 12px; cursor: pointer;
   }
   .search-bar .icon { font-size: 15px; margin-right: 8px; }
   .search-bar .placeholder { color: var(--text-secondary); font-size: 15px; }
   .search-bar input {
-    flex: 1; background: none; border: none; color: var(--text-primary);
-    font-size: 15px; outline: none;
+    flex: 1; background: none; border: none;
+    color: var(--text-primary); font-size: 15px; outline: none;
   }
   .search-bar .clear { color: var(--text-secondary); cursor: pointer; padding: 4px 8px; font-size: 16px; }
 
-  /* Swiper */
+  /* ===== BANNER ===== */
   .banner { width: 100%; height: 200px; position: relative; overflow: hidden; }
   .banner-slide {
     width: 100%; height: 100%; display: flex;
@@ -155,40 +154,43 @@
   .banner-name { color: var(--text-primary); font-size: 20px; font-weight: 700; display: block; }
   .banner-price { color: var(--accent); font-size: 18px; font-weight: 700; margin-top: 4px; display: block; }
   .banner-dots { position: absolute; bottom: 10px; right: 16px; display: flex; gap: 6px; z-index: 2; }
-  .banner-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-secondary); }
+  .banner-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-secondary); transition: all 0.3s; }
   .banner-dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
 
-  /* Category grid */
-  .cat-grid { display: flex; justify-content: space-around; padding: 20px 12px; }
+  /* ===== CATEGORY GRID (Home) ===== */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 20px 12px;
+  }
   .cat-item {
     display: flex; flex-direction: column; align-items: center; gap: 6px;
-    cursor: pointer; padding: 8px; border: none; background: none; color: var(--text-secondary);
+    cursor: pointer; padding: 8px 4px; border: none; background: none; color: var(--text-secondary);
   }
   .cat-icon {
     width: 52px; height: 52px; border-radius: 14px; display: flex;
     align-items: center; justify-content: center; font-size: 24px;
     background: var(--bg-card);
   }
-  .cat-name { font-size: 12px; }
+  .cat-name { font-size: 12px; white-space: nowrap; }
 
-  /* Section */
+  /* ===== SECTION ===== */
   .section { padding: 0 16px; }
   .section-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
 
-  /* Product card grid */
+  /* ===== PRODUCT CARD ===== */
   .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .product-card {
     background: var(--bg-card); border-radius: 10px; overflow: hidden; cursor: pointer;
     transition: transform 0.15s;
   }
+  .product-card:hover { transform: translateY(-2px); }
   .product-card:active { transform: scale(0.97); }
-  .product-img {
-    width: 100%; height: 160px; object-fit: cover;
-    background: linear-gradient(135deg, #1a1a2e, #162447);
-  }
   .product-placeholder {
     width: 100%; height: 160px; display: flex; align-items: center;
-    justify-content: center; font-size: 48px; background: linear-gradient(135deg, #1a1a2e, #162447);
+    justify-content: center; font-size: 48px;
+    background: linear-gradient(135deg, #1a1a2e, #162447);
   }
   .product-body { padding: 12px; }
   .product-name {
@@ -197,7 +199,7 @@
   }
   .product-price { font-size: 17px; font-weight: 700; color: var(--accent); margin-top: 6px; display: block; }
 
-  /* Category tabs */
+  /* ===== CATEGORY TABS ===== */
   .cat-tabs {
     display: flex; gap: 10px; padding: 14px 16px; white-space: nowrap;
     border-bottom: 0.5px solid var(--divider); overflow-x: auto;
@@ -211,13 +213,16 @@
   .cat-tab.active { color: #0a0a0f; background: var(--accent); font-weight: 600; }
   .cat-count { padding: 8px 16px 4px; font-size: 13px; color: var(--text-secondary); }
 
-  /* Search result */
+  /* ===== SEARCH RESULTS ===== */
   .result-item {
     display: flex; align-items: center; padding: 14px 16px;
     border-bottom: 0.5px solid var(--divider); cursor: pointer;
   }
-  .result-img { width: 64px; height: 64px; border-radius: 8px; background: var(--bg-card); flex-shrink: 0; object-fit: cover; }
-  .result-placeholder { width: 64px; height: 64px; border-radius: 8px; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+  .result-item:active { background: var(--bg-card); }
+  .result-placeholder {
+    width: 64px; height: 64px; border-radius: 8px; background: var(--bg-card);
+    display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0;
+  }
   .result-body { flex: 1; margin-left: 14px; }
   .result-name { font-size: 15px; color: var(--text-primary); }
   .result-meta { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
@@ -230,12 +235,11 @@
   }
   .hot-tag:hover { color: var(--accent); }
 
-  /* Detail */
+  /* ===== DETAIL ===== */
   .detail-swiper {
     width: 100%; height: 280px; background: var(--bg-card);
     display: flex; align-items: center; justify-content: center; position: relative;
   }
-  .detail-img { width: 100%; height: 100%; object-fit: contain; }
   .detail-placeholder-2 { font-size: 72px; }
   .detail-dots {
     position: absolute; bottom: 12px; display: flex; gap: 6px;
@@ -255,7 +259,7 @@
   .spec-key { color: var(--text-secondary); font-size: 13px; }
   .spec-value { color: var(--text-primary); font-size: 13px; }
 
-  /* Bottom bar */
+  /* ===== BOTTOM BAR ===== */
   .bottom-bar {
     position: absolute; bottom: 60px; left: 0; right: 0;
     padding: 10px 16px; background: var(--bg-primary);
@@ -268,7 +272,7 @@
   }
   .btn-copy:active { opacity: 0.85; }
 
-  /* About */
+  /* ===== ABOUT ===== */
   .about-container { display: flex; flex-direction: column; align-items: center; padding: 40px 24px; text-align: center; }
   .brand-name { font-size: 24px; font-weight: 700; color: var(--text-primary); }
   .brand-desc { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
@@ -277,14 +281,14 @@
   .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
   .contact-card {
     width: 100%; padding: 18px; background: var(--bg-card); border-radius: 14px;
-    cursor: pointer; margin-bottom: 24px;
+    cursor: pointer; margin-bottom: 24px; transition: opacity 0.2s;
   }
   .contact-card:active { opacity: 0.8; }
   .contact-label { font-size: 12px; color: var(--text-secondary); }
   .contact-val { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-top: 4px; }
   .contact-hint { font-size: 12px; color: var(--accent); margin-top: 4px; }
 
-  /* Toast */
+  /* ===== TOAST ===== */
   .toast {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
     background: rgba(0,0,0,0.85); color: #fff; padding: 12px 24px;
@@ -293,10 +297,8 @@
   }
   .toast.show { opacity: 1; }
 
-  /* Empty state */
+  /* ===== EMPTY / LOADING ===== */
   .empty-state { text-align: center; padding: 60px 0; color: var(--text-secondary); font-size: 14px; }
-
-  /* Loading */
   .loading-text { text-align: center; padding: 20px; color: var(--text-secondary); font-size: 13px; }
 </style>
 </head>
@@ -341,12 +343,7 @@
         </div>
       </div>
 
-      <div class="cat-grid">
-        <button class="cat-item" onclick="showCategory('耳机')"><span class="cat-icon">🎧</span><span class="cat-name">耳机</span></button>
-        <button class="cat-item" onclick="showCategory('鼠标')"><span class="cat-icon">🖱️</span><span class="cat-name">鼠标</span></button>
-        <button class="cat-item" onclick="showCategory('键盘')"><span class="cat-icon">⌨️</span><span class="cat-name">键盘</span></button>
-        <button class="cat-item" onclick="showCategory('配件')"><span class="cat-icon">🔌</span><span class="cat-name">配件</span></button>
-      </div>
+      <div class="cat-grid" id="homeCatGrid"></div>
 
       <div class="section">
         <div class="section-title">热门推荐</div>
@@ -359,14 +356,12 @@
       <div class="cat-tabs" id="catTabs"></div>
       <div class="cat-count" id="catCount"></div>
       <div class="product-grid" id="catGrid" style="padding:0 16px;"></div>
-      <div class="loading-text" id="catLoading" style="display:none">加载中...</div>
-      <div class="loading-text" id="catEnd" style="display:none">— 已展示全部 —</div>
       <div class="empty-state" id="catEmpty" style="display:none">暂无产品</div>
     </div>
 
     <!-- SEARCH -->
     <div class="page" id="page-search">
-      <div class="search-bar">
+      <div class="search-bar" style="margin-top:0;border-radius:0;">
         <span class="icon">🔍</span>
         <input type="text" placeholder="搜索产品" id="searchInput" oninput="doSearch()">
         <span class="clear" id="clearBtn" style="display:none" onclick="clearSearch()">✕</span>
@@ -375,9 +370,9 @@
         <button class="hot-tag" onclick="quickSearch('蓝牙')">蓝牙</button>
         <button class="hot-tag" onclick="quickSearch('降噪')">降噪</button>
         <button class="hot-tag" onclick="quickSearch('无线')">无线</button>
-        <button class="hot-tag" onclick="quickSearch('机械键盘')">机械键盘</button>
-        <button class="hot-tag" onclick="quickSearch('游戏鼠标')">游戏鼠标</button>
         <button class="hot-tag" onclick="quickSearch('Type-C')">Type-C</button>
+        <button class="hot-tag" onclick="quickSearch('快充')">快充</button>
+        <button class="hot-tag" onclick="quickSearch('移动电源')">移动电源</button>
       </div>
       <div id="searchResults"></div>
     </div>
@@ -397,7 +392,7 @@
     <!-- ABOUT -->
     <div class="page" id="page-about">
       <div class="about-container">
-        <div class="brand-name">产品目录</div>
+        <div class="brand-name">OTU</div>
         <div class="brand-desc">科技消费品展示目录</div>
         <div class="stat-box">
           <span class="stat-num" id="aboutCount">--</span>
@@ -425,41 +420,53 @@
 </div>
 
 <script>
-// === DATA (loaded from products.js) ===
 const wechatId = 'OTU_ELECTRONICS';
 
-// === STATE ===
-let currentTab = 'home';
 let currentPage = 'home';
 let activeCategory = '充电器';
 let pageStack = [];
 
-// === CATEGORY CONFIG ===
+// ===== CATEGORY ICONS =====
 const catIcons = {
   '充电器':'🔌', '车充':'🚗', '数据线':'🔗', '蓝牙耳机':'🎧', '有线耳机':'🎵',
   '蓝牙音箱':'🔊', '移动电源':'🔋', '车载支架':'📱', '排插':'⚡', '键鼠':'🖱️',
   '存储':'💾', '接收器':'📶'
 };
 
-// === RENDER ===
+const catColors = {
+  '充电器':'#0d1b3e', '车充':'#1a2a1a', '数据线':'#16213e', '蓝牙耳机':'#1a1040',
+  '有线耳机':'#162447', '蓝牙音箱':'#0a2a2a', '移动电源':'#1a1a2e', '车载支架':'#0d1b3e',
+  '排插':'#1a1a2e', '键鼠':'#16213e', '存储':'#0d1b3e', '接收器':'#1a1a2e'
+};
+
+function categoryIcon(cat) { return catIcons[cat] || '📦'; }
+
+// ===== RENDER =====
+function renderHomeCategories() {
+  const homeCats = categories.slice(0, 8);
+  document.getElementById('homeCatGrid').innerHTML = homeCats.map(c =>
+    `<button class="cat-item" onclick="showCategory('${c}')">
+      <span class="cat-icon">${catIcons[c]||'📦'}</span>
+      <span class="cat-name">${c}</span>
+    </button>`
+  ).join('');
+}
+
 function renderHotProducts() {
   const hot = products.filter(p => p.isHot).sort((a,b) => b.sort - a.sort).slice(0, 8);
   document.getElementById('hotGrid').innerHTML = hot.map(p => productCardHTML(p)).join('');
 }
 
 function productCardHTML(p) {
-  const colors = {'充电器':'#0d1b3e','车充':'#1a2a1a','数据线':'#16213e','蓝牙耳机':'#1a1040',
-    '有线耳机':'#162447','蓝牙音箱':'#0a2a2a','移动电源':'#1a1a2e','车载支架':'#0d1b3e',
-    '排插':'#1a1a2e','键鼠':'#16213e','存储':'#0d1b3e','接收器':'#1a1a2e'};
-  const grad = colors[p.category] || '#1a1a2e';
+  const grad = catColors[p.category] || '#1a1a2e';
   return `
     <div class="product-card" onclick="showDetail('${p.id}')">
       <div class="product-placeholder" style="background:linear-gradient(135deg, ${grad}, #0a0a0f);">
-        ${catIcons[p.category] || '📦'}
+        ${categoryIcon(p.category)}
       </div>
       <div class="product-body">
         <div class="product-name">${p.name}</div>
-        <span class="product-price">¥${p.price || '询价'}</span>
+        <span class="product-price">${p.price ? '¥'+p.price : '询价'}</span>
       </div>
     </div>`;
 }
@@ -477,28 +484,16 @@ function renderCategoryProducts() {
   document.getElementById('catEmpty').style.display = list.length === 0 ? 'block' : 'none';
 }
 
-function renderHomeCategories() {
-  const homeCats = categories.slice(0, 8);
-  const grid = document.querySelector('#page-home .cat-grid');
-  grid.innerHTML = homeCats.map(c =>
-    `<button class="cat-item" onclick="showCategory('${c}')"><span class="cat-icon">${catIcons[c]||'📦'}</span><span class="cat-name">${c}</span></button>`
-  ).join('');
-}
-
-// === NAVIGATION ===
+// ===== NAVIGATION =====
 function showPage(page, pushStack=true) {
-  if (pushStack && currentPage !== page) {
-    pageStack.push(currentPage);
-  }
+  if (pushStack && currentPage !== page) pageStack.push(currentPage);
   currentPage = page;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
 
-  const nav = document.getElementById('navBar');
   const back = document.getElementById('navBack');
   const share = document.getElementById('navShare');
   const title = document.getElementById('navTitle');
-
   share.style.display = 'none';
 
   if (page === 'home') {
@@ -526,40 +521,29 @@ function showPage(page, pushStack=true) {
   document.getElementById('pages').scrollTop = 0;
 }
 
-function goBack() {
-  const prev = pageStack.pop() || 'home';
-  showPage(prev, false);
-}
+function goBack() { showPage(pageStack.pop() || 'home', false); }
 
 function updateTabs(active) {
   document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
   if (active) document.getElementById('tab-'+active).classList.add('active');
 }
 
-function switchTab(tab) {
-  pageStack = [];
-  showPage(tab, false);
-}
+function switchTab(tab) { pageStack = []; showPage(tab, false); }
 
-function showCategory(cat) {
-  activeCategory = cat;
-  switchTab('category');
-}
+function showCategory(cat) { activeCategory = cat; switchTab('category'); }
 
-function setCategory(cat) {
-  activeCategory = cat;
-  renderCategoryTabs();
-  renderCategoryProducts();
-}
+function setCategory(cat) { activeCategory = cat; renderCategoryTabs(); renderCategoryProducts(); }
 
 function showDetail(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
   showPage('detail');
 
-  const grad = p.color || '#1a1a2e';
+  const grad = catColors[p.category] || '#1a1a2e';
   document.getElementById('detailSwiper').innerHTML = `
-    <div class="detail-placeholder-2" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px;background:linear-gradient(135deg,${grad},#0a0a0f);">${categoryIcon(p.category)}</div>
+    <div class="detail-placeholder-2" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px;background:linear-gradient(135deg,${grad},#0a0a0f);">
+      ${categoryIcon(p.category)}
+    </div>
     <div class="detail-dots"><span class="banner-dot active"></span></div>`;
 
   document.getElementById('detailInfo').innerHTML = `
@@ -580,16 +564,13 @@ function showDetail(id) {
     </div>`;
 }
 
-// === SEARCH ===
+// ===== SEARCH =====
 function doSearch() {
   const kw = document.getElementById('searchInput').value.trim().toLowerCase();
   document.getElementById('clearBtn').style.display = kw ? 'block' : 'none';
   document.getElementById('hotTags').style.display = kw ? 'none' : 'flex';
 
-  if (!kw) {
-    document.getElementById('searchResults').innerHTML = '';
-    return;
-  }
+  if (!kw) { document.getElementById('searchResults').innerHTML = ''; return; }
 
   const results = products.filter(p =>
     p.name.toLowerCase().includes(kw) || p.description.toLowerCase().includes(kw)
@@ -609,18 +590,11 @@ function doSearch() {
     `).join('')}`;
 }
 
-function quickSearch(tag) {
-  document.getElementById('searchInput').value = tag;
-  doSearch();
-}
+function quickSearch(tag) { document.getElementById('searchInput').value = tag; doSearch(); }
 
-function clearSearch() {
-  document.getElementById('searchInput').value = '';
-  doSearch();
-  document.getElementById('searchInput').focus();
-}
+function clearSearch() { document.getElementById('searchInput').value = ''; doSearch(); document.getElementById('searchInput').focus(); }
 
-// === ACTIONS ===
+// ===== ACTIONS =====
 function copyWechat() {
   navigator.clipboard.writeText(wechatId).then(() => showToast('微信号已复制'));
 }
@@ -631,24 +605,22 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2000);
 }
 
-// === BANNER AUTO ===
+// ===== BANNER AUTO =====
 let bannerIdx = 0;
 const bannerProducts = products.filter(p => p.isHot).sort((a,b) => b.sort - a.sort).slice(0,3);
 setInterval(() => {
   bannerIdx = (bannerIdx + 1) % bannerProducts.length;
   if (currentPage === 'home' && bannerProducts.length) {
     const p = bannerProducts[bannerIdx];
-    const dots = document.querySelectorAll('#banner .banner-dot');
-    dots.forEach((d,i) => d.classList.toggle('active', i === bannerIdx));
+    document.querySelectorAll('#banner .banner-dot').forEach((d,i) => d.classList.toggle('active', i === bannerIdx));
     const slide = document.querySelector('#banner .banner-slide');
-    slide.style.background = `linear-gradient(135deg, #1a1040, #0d1b3e, #0a0a0f)`;
     slide.querySelector('.banner-name').textContent = p.name;
     slide.querySelector('.banner-price').textContent = p.price ? '¥'+p.price : '询价';
     slide.onclick = () => showDetail(p.id);
   }
 }, 4000);
 
-// === INIT ===
+// ===== INIT =====
 renderHomeCategories();
 renderHotProducts();
 renderCategoryTabs();
