@@ -6,11 +6,11 @@ A dark-themed product showcase web app for tech consumer electronics. Browse **8
 
 ## Why This Project
 
-My family runs a booth at Yiwu International Trade City (义乌国际商贸城), selling tech consumer electronics — chargers, cables, earbuds, power banks, and more. Customers often visit the booth to browse products, but flipping through a physical catalog is slow and hard to update.
+My family is starting a tech consumer electronics booth at Yiwu International Trade City (义乌国际商贸城), selling chargers, cables, earbuds, power banks, and more. Customers visit the booth to browse products, but a physical catalog is slow to update and hard to carry around.
 
-I built this as a **WeChat Mini Program** so customers could scan a QR code, browse the full product catalog on their phone, and copy our WeChat ID to place orders. The `miniprogram/` directory contains the complete WeChat source code with cloud backend.
+I built this as a **WeChat Mini Program** so customers could scan a QR code, browse the full product catalog on their phone, and copy our WeChat ID to place orders. The `miniprogram/` directory contains the complete Mini Program source code with cloud backend.
 
-However, WeChat Mini Program review policies require a registered business entity and domain verification, which takes time. To demo the project immediately, I also built a **standalone web version** (`index.html`) that replicates the full Mini Program experience in a browser — same UI, same data, same interactions. This is the live demo you see above.
+However, WeChat Mini Program publishing requires business registration and domain verification, which takes time. To demonstrate the project immediately, I built a **standalone web version** (`index.html`) that replicates the full Mini Program experience in a browser — same UI, same data, same interactions. This is the live demo you see above.
 
 Once the WeChat review is complete, the Mini Program can be deployed directly.
 
